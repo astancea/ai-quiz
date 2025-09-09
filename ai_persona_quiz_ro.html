@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chestionar: Persona AI</title>
+  <style>
+    :root { --w: 900px; --pad: 14px; }
+    html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;background:#0b0e14;color:#e6e6e6;}
+    .wrap{max-width:var(--w);margin:0 auto;padding:32px 16px 80px;}
+    h1{font-size:clamp(24px,2.6vw,34px);margin:0 0 10px 0}
+    p.lead{opacity:.8;margin:.3rem 0 1rem}
+    fieldset{border:1px solid #292c35;border-radius:14px;padding:18px;margin:18px 0;background:#111525}
+    legend{padding:0 8px;font-weight:700}
+    .q{display:grid;gap:10px}
+    label{display:flex;gap:10px;align-items:flex-start;line-height:1.3;cursor:pointer}
+    .row{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
+    .row > label{border:1px solid #292c35;border-radius:12px;padding:8px 10px}
+    input[type="radio"], input[type="checkbox"]{margin-top:3px;transform:scale(1.1)}
+    select{background:#0f1324;color:#e6e6e6;border:1px solid #2a2f40;border-radius:10px;padding:8px}
+    .grid{display:grid;gap:12px}
+    .likert{display:grid;grid-template-columns:1fr repeat(5, minmax(40px,80px));align-items:center;gap:6px}
+    .likert .head{opacity:.7;font-size:.95rem}
+    .likert .opt{text-align:center;opacity:.9}
+    .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    button{border:0;background:#6a8dff;color:white;padding:12px 16px;border-radius:12px;font-weight:700;cursor:pointer}
+    button.secondary{background:#2d3347}
+    .card{border:1px solid #292c35;border-radius:16px;padding:18px;background:#0f1324;margin-top:18px}
+    .persona{display:flex;align-items:flex-start;gap:12px}
+    .persona b{font-size:1.15rem}
+    .badge{font-size:28px;line-height:1}
+    .muted{opacity:.7}
+    .scoreline{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:.95rem;opacity:.85}
+    .hidden{display:none}
+    .small{font-size:.92rem;opacity:.8}
+    .hr{height:1px;background:#25293a;margin:14px 0}
+    a{color:#9cc0ff}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Chestionar: Persona AI</h1>
+    <p class="lead">Află dacă ești 🥰 Maximalistul, 🤫 Underground, 😎 Rebelul, 🤩 Superfanul sau 🧐 Observatorul. Răspunde la întrebări – rezultatul apare imediat.</p>
+
+    <form id="quiz" class="grid">
+      <!-- Q1 Frequency -->
+      <fieldset>
+        <legend>1) Cât de des folosești instrumente de inteligență artificială pentru sarcinile legate de muncă/facultate?</legend>
+        <p class="muted">Te rog selectează opțiunea care se potrivește cel mai bine.</p>
+        <div class="q">
+          <label><input type="radio" name="q1" value="daily"> Zilnic</label>
+          <label><input type="radio" name="q1" value="few_week"> De câteva ori pe săptămână</label>
+          <label><input type="radio" name="q1" value="weekly"> Săptămânal</label>
+          <label><input type="radio" name="q1" value="biweekly"> O dată la 2 săptămâni</label>
+          <label><input type="radio" name="q1" value="monthly"> Lunar</label>
+          <label><input type="radio" name="q1" value="lt_monthly"> Mai rar decât o dată pe lună</label>
+          <label><input type="radio" name="q1" value="tested"> Le-am testat doar o dată sau de două ori</label>
+          <label><input type="radio" name="q1" value="never"> Niciodată</label>
+        </div>
+      </fieldset>
+
+      <!-- Q2 Motivation -->
+      <fieldset>
+        <legend>2) Care dintre următoarele descrie cel mai bine motivația ta de a folosi AI la locul de muncă?</legend>
+        <p class="muted">Te rog selectează o singură opțiune.</p>
+        <div class="q">
+          <label><input type="radio" name="q2" value="quality"> Vreau să produc o muncă de o calitate mai bună</label>
+          <label><input type="radio" name="q2" value="capacity"> Vreau să îmi cresc capacitatea de a realiza mai multe sarcini</label>
+          <label><input type="radio" name="q2" value="freetime"> Vreau să îmi eliberez timpul pentru activități mai strategice/creative la muncă</label>
+          <label><input type="radio" name="q2" value="lesswork"> Vreau să muncesc mai puțin</label>
+          <label><input type="radio" name="q2" value="notmotiv"> Nu este aplicabil – nu sunt motivat(ă) să folosesc AI la muncă</label>
+        </div>
+      </fieldset>
+
+      <!-- Q3 Feelings (multi) -->
+      <fieldset>
+        <legend>3) Cum te simți în legătură cu utilizarea AI la locul de muncă?</legend>
+        <p class="muted">Te rog selectează toate opțiunile care se aplică.</p>
+        <div class="q row">
+          <label><input type="checkbox" name="q3" value="excited"> Entuziasmat(ă)</label>
+          <label><input type="checkbox" name="q3" value="concerned"> Îngrijorat(ă)</label>
+          <label><input type="checkbox" name="q3" value="guilty"> Vinovat(ă)</label>
+          <label><input type="checkbox" name="q3" value="relieved"> Ușurat(ă)</label>
+          <label><input type="checkbox" name="q3" value="indifferent"> Indiferent(ă)</label>
+          <label><input type="checkbox" name="q3" value="reluctant"> Reticent(ă)</label>
+        </div>
+      </fieldset>
+
+      <!-- Q4 Automation -->
+      <fieldset>
+        <legend>4) Cât de entuziasmat(ă) sau îngrijorat(ă) ești de ideea ca AI/automatul să înlocuiască sarcini din actualul tău loc de muncă?</legend>
+        <div class="q">
+          <label><input type="radio" name="q4" value="v_excited"> Foarte entuziasmat(ă)</label>
+          <label><input type="radio" name="q4" value="q_excited"> Destul de entuziasmat(ă)</label>
+          <label><input type="radio" name="q4" value="neutral"> Neutru(ă)</label>
+          <label><input type="radio" name="q4" value="q_concerned"> Destul de îngrijorat(ă)</label>
+          <label><input type="radio" name="q4" value="v_concerned"> Foarte îngrijorat(ă)</label>
+        </div>
+      </fieldset>
+
+      <!-- Q5 Disclosure -->
+      <fieldset>
+        <legend>5) Îți dezvălui utilizarea AI colegilor la locul de muncă?</legend>
+        <p class="muted">Te rog selectează opțiunea care se potrivește cel mai bine.</p>
+        <div class="q">
+          <label><input type="radio" name="q5" value="encourage"> Da, și îi încurajez activ pe alții să folosească AI</label>
+          <label><input type="radio" name="q5" value="mention"> Da, menționez des asta fără să fiu întrebat(ă), dar nu încerc să îi influențez pe alții</label>
+          <label><input type="radio" name="q5" value="iftasked"> Da, spun dacă sunt întrebat(ă), dar nu fac reclamă acestui lucru</label>
+          <label><input type="radio" name="q5" value="never"> Nu, nu împărtășesc niciodată asta cu alții la muncă</label>
+          <label><input type="radio" name="q5" value="na"> Nu este aplicabil – nu folosesc AI la muncă</label>
+        </div>
+      </fieldset>
+
+      <!-- Q6 Company support -->
+      <fieldset>
+        <legend>6) În ce măsură compania ta sprijină utilizarea AI pentru a ajuta la sarcinile de la locul de muncă?</legend>
+        <div class="q">
+          <label><input type="radio" name="q6" value="active"> O încurajează activ, în orice formă</label>
+          <label><input type="radio" name="q6" value="rules"> O încurajează, dar trebuie să respectăm regulile companiei</label>
+          <label><input type="radio" name="q6" value="neutral"> Sunt de acord, dar nu este nici încurajată, nici descurajată în mod activ</label>
+          <label><input type="radio" name="q6" value="discourage"> În general o descurajează</label>
+        </div>
+      </fieldset>
+
+      <!-- Q7 Societal impact -->
+      <fieldset>
+        <legend>7) Care dintre următoarele descrie cel mai bine percepția ta asupra impactului potențial al AI asupra societății?</legend>
+        <div class="q">
+          <label><input type="radio" name="q7" value="threat_only"> AI este o amenințare fără niciun beneficiu</label>
+          <label><input type="radio" name="q7" value="mostly_threat"> AI este mai ales o amenințare, dar are unele beneficii</label>
+          <label><input type="radio" name="q7" value="mostly_benefit"> AI este în mare parte benefică, dar are și unele riscuri</label>
+          <label><input type="radio" name="q7" value="benefit_only"> AI este benefică, fără amenințări</label>
+          <label><input type="radio" name="q7" value="dont_think"> Nu mă gândesc cu adevărat la AI sau la impactul acesteia</label>
+        </div>
+      </fieldset>
+
+      <!-- Q8 Perspectives Likert -->
+      <fieldset>
+        <legend>8) În ce măsură ești de acord sau în dezacord cu următoarele afirmații? (1 = Total dezacord, 5 = Total de acord)</legend>
+        <div class="likert">
+          <div class="head"></div>
+          <div class="opt">1</div><div class="opt">2</div><div class="opt">3</div><div class="opt">4</div><div class="opt">5</div>
+
+          <div>Admir colegii care aplică AI creativ în munca lor</div>
+          <div><input type="radio" name="q8a" value="1"></div>
+          <div><input type="radio" name="q8a" value="2"></div>
+          <div><input type="radio" name="q8a" value="3"></div>
+          <div><input type="radio" name="q8a" value="4"></div>
+          <div><input type="radio" name="q8a" value="5"></div>
+
+          <div>Sunt îngrijorat(ă) că AI ar putea înlocui locuri de muncă</div>
+          <div><input type="radio" name="q8b" value="1"></div>
+          <div><input type="radio" name="q8b" value="2"></div>
+          <div><input type="radio" name="q8b" value="3"></div>
+          <div><input type="radio" name="q8b" value="4"></div>
+          <div><input type="radio" name="q8b" value="5"></div>
+
+          <div>Sunt interesat(ă) să învăț/dezvolt în continuare competențe în AI</div>
+          <div><input type="radio" name="q8c" value="1"></div>
+          <div><input type="radio" name="q8c" value="2"></div>
+          <div><input type="radio" name="q8c" value="3"></div>
+          <div><input type="radio" name="q8c" value="4"></div>
+          <div><input type="radio" name="q8c" value="5"></div>
+        </div>
+      </fieldset>
+
+      <div class="btns">
+        <button type="button" id="submitBtn">Află-ți persona</button>
+        <button type="reset" class="secondary">Reset</button>
+      </div>
+    </form>
+
+    <div id="result" class="card hidden"></div>
+
+    <div class="card small">
+      <b>Cum e calculat rezultatul?</b>
+      <div class="hr"></div>
+      <div class="scoreline">Frecvență înaltă + dezvăluire → 🥰 Maximalist | Frecvență înaltă + nu divulgi → 🤫 Underground | Frecvență joasă + temeri → 😎 Rebel | Entuziasm ridicat + frecvență mică → 🤩 Superfan | Indiferență + frecvență mică → 🧐 Observator.</div>
+    </div>
+  </div>
+
+  <script>
+    const personaMeta = {
+      M: {name:"Maximalistul", icon:"🥰", blurb:"Folosești AI frecvent pentru a îmbunătăți calitatea și capacitatea muncii și vorbești deschis despre asta."},
+      U: {name:"Underground", icon:"🤫", blurb:"Folosești AI des, dar preferi să nu faci mare caz de asta la muncă."},
+      R: {name:"Rebelul", icon:"😎", blurb:"Ești sceptic(ă) față de hype-ul AI, îngrijorat(ă) de riscuri și folosești rar sau deloc aceste instrumente."},
+      S: {name:"Superfanul", icon:"🤩", blurb:"Ești entuziasmat(ă) de AI și admir(i) inovația, dar încă nu îl folosești intens la muncă."},
+      O: {name:"Observatorul", icon:"🧐", blurb:"Nu ai integrat încă AI în munca ta; urmărești fenomenul cu prudență și interes."}
+    };
+
+    function getVal(name) {
+      const els = [...document.querySelectorAll(`[name="${name}"]`)];
+      const r = els.find(e => e.checked);
+      return r ? r.value : null;
+    }
+    function getVals(name) {
+      return [...document.querySelectorAll(`[name="${name}"]:checked`)].map(e=>e.value);
+    }
+
+    function score() {
+      let M=0,U=0,R=0,S=0,O=0;
+
+      // Q1 Frequency
+      const q1 = getVal("q1");
+      if (["daily","few_week","weekly"].includes(q1)) { M+=3; U+=3; }
+      if (["biweekly","monthly","lt_monthly"].includes(q1)) { S+=3; }
+      if (["never","tested"].includes(q1)) { O+=3; R+=2; }
+
+      // Q2 Motivation
+      const q2 = getVal("q2");
+      if (q2==="quality") M+=2;
+      if (q2==="capacity") M+=2;
+      if (q2==="freetime") { M+=1; S+=1; }
+      if (q2==="lesswork") R+=2;
+      if (q2==="notmotiv") { O+=2; R+=1; }
+
+      // Q3 Feelings (multi)
+      const q3 = getVals("q3");
+      if (q3.includes("excited")) { S+=2; M+=1; }
+      if (q3.includes("indifferent")) { O+=2; }
+      if (q3.includes("concerned")) { R+=2; }
+      if (q3.includes("guilty")) { R+=1; }
+      if (q3.includes("relieved")) { M+=1; S+=1; }
+      if (q3.includes("reluctant")) { O+=2; R+=1; }
+
+      // Q4 Automation
+      const q4 = getVal("q4");
+      if (["v_excited","q_excited"].includes(q4)) S+=2;
+      if (q4==="neutral") O+=2;
+      if (["q_concerned","v_concerned"].includes(q4)) R+=2;
+
+      // Q5 Disclosure
+      const q5 = getVal("q5");
+      if (q5==="encourage") M+=3;
+      if (q5==="mention") M+=2;
+      if (q5==="iftasked") U+=2;
+      if (q5==="never") U+=3;
+      if (q5==="na") { O+=2; R+=2; }
+
+      // Q6 Company support
+      const q6 = getVal("q6");
+      if (q6==="active") M+=2;
+      if (q6==="rules") { M+=1; U+=1; }
+      if (q6==="neutral") O+=1;
+      if (q6==="discourage") { U+=2; R+=2; }
+
+      // Q7 Societal impact
+      const q7 = getVal("q7");
+      if (q7==="threat_only") R+=3;
+      if (q7==="mostly_threat") R+=2;
+      if (q7==="mostly_benefit") { M+=2; S+=1; }
+      if (q7==="benefit_only") M+=3;
+      if (q7==="dont_think") O+=3;
+
+      // Q8 Likert
+      const q8a = parseInt(getVal("q8a")||"0",10);
+      const q8b = parseInt(getVal("q8b")||"0",10);
+      const q8c = parseInt(getVal("q8c")||"0",10);
+      if (q8a>=4) { S+=2; M+=1; }
+      if (q8b>=4) { R+=2; }
+      if (q8c>=4) { S+=2; }
+      if (q8c<=2 && q8c>0) { O+=2; }
+
+      const totals = {M,U,R,S,O};
+      return totals;
+    }
+
+    function tiebreak(totals){
+      // Primary tiebreaker: Frequency (Q1)
+      const q1 = getVal("q1");
+      const rank = (v)=> (v==="daily"||v==="few_week")?2 : (v==="weekly"||v==="biweekly")?1 : 0;
+      const freqScore = rank(q1);
+
+      const keys = Object.keys(totals);
+      let max = Math.max(...Object.values(totals));
+      let candidates = keys.filter(k => totals[k]===max);
+
+      if (candidates.length===1) return candidates[0];
+
+      // Favor frequent users for M/U; infrequent for R/O; superfans by excitement (Q3)
+      if (freqScore===2){
+        if (candidates.includes("M")) return "M";
+        if (candidates.includes("U")) return "U";
+      } else if (freqScore===0){
+        if (candidates.includes("R")) return "R";
+        if (candidates.includes("O")) return "O";
+      }
+      // If still tied, prefer Superfan if excited checked
+      const excited = getVals("q3").includes("excited");
+      if (excited && candidates.includes("S")) return "S";
+
+      return candidates[0]; // fallback
+    }
+
+    function renderResult(totals){
+      const resultEl = document.getElementById("result");
+      const key = tiebreak(totals);
+      const meta = personaMeta[key];
+      const sum = Object.values(totals).reduce((a,b)=>a+b,0) || 1;
+      const pct = (x)=> Math.round((x/sum)*100);
+
+      const detail = Object.entries(totals)
+        .map(([k,v]) => {
+          const p = pct(v);
+          const label = personaMeta[k].icon + " " + personaMeta[k].name;
+          return `<div>${label}: <b>${p}%</b></div>`;
+        }).join("");
+
+      const extraFacts = {
+        M: [
+          "65% își dezvăluie utilizarea AI și îi încurajează pe alții.",
+          "Motivația #1: calitatea muncii.",
+          "Aprobarea în companie apare frecvent, cu sau fără ghiduri."
+        ],
+        U: [
+          "Folosesc AI de câteva ori pe săptămână (sau mai des).",
+          "Nu împărtășesc activ folosirea AI cu ceilalți.",
+          "Adesea percep că firma nu încurajează utilizarea AI."
+        ],
+        R: [
+          "Evita folosirea AI (adesea niciodată).",
+          "Văd AI mai degrabă ca o amenințare pentru societate.",
+          "Consideră adesea necorect când alții folosesc AI în sarcini."
+        ],
+        S: [
+          "Folosire rară, dar entuziasm ridicat față de AI.",
+          "Admiră colegii care folosesc AI creativ.",
+          "Dornici să învețe competențe AI."
+        ],
+        O: [
+          "Încă nu au integrat AI în munca lor.",
+          "Se simt mai degrabă indiferenți/rezervați.",
+          "Aproximativ o treime sunt interesați să învețe mai mult."
+        ]
+      };
+
+      resultEl.innerHTML = `
+        <div class="persona">
+          <div class="badge">${meta.icon}</div>
+          <div>
+            <div><b>${meta.name}</b></div>
+            <div class="muted">${meta.blurb}</div>
+          </div>
+        </div>
+        <div class="hr"></div>
+        <div class="small">${detail}</div>
+        <div class="hr"></div>
+        <div class="small"><b>Indicii despre profilul tău:</b>
+          <ul>
+            ${extraFacts[key].map(x=>`<li>${x}</li>`).join("")}
+          </ul>
+        </div>
+      `;
+      resultEl.classList.remove("hidden");
+      resultEl.scrollIntoView({behavior:"smooth"});
+    }
+
+    document.getElementById("submitBtn").addEventListener("click", () => {
+      const totals = score();
+      renderResult(totals);
+    });
+  </script>
+</body>
+</html>
