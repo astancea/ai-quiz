@@ -3,31 +3,43 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chestionar Persona AI</title>
+  <title>AI Persona Quiz</title>
   <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
+    :root { --bg:#0b0e14; --ink:#e9edf6; --muted:#aeb6c6; --btn:#7aa2ff; }
+    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+    header{padding:14px 18px}
+    h1{font-size:clamp(22px,2.6vw,30px);margin:0}
+    .wrap{max-width:1200px;margin:0 auto;padding:0 12px 36px}
+    iframe{border:0;width:100%;height:80vh;display:block;border-radius:12px;overflow:hidden;background:#0f1324}
+    .cta{display:flex;justify-content:center;margin:18px 0}
+    .cta a{
+      background:var(--btn); color:#0b0e14; text-decoration:none;
+      padding:12px 16px; border-radius:12px; font-weight:700;
+      box-shadow:0 6px 16px rgba(122,162,255,.25)
     }
-    iframe {
-      border: none;
-      flex: 1;
-      width: 100%;
-    }
-    header {
-      background: #0b0e14;
-      color: #fff;
-      padding: 10px 20px;
-      font-family: system-ui, sans-serif;
-    }
+    .hint{color:var(--muted); text-align:center; margin-top:8px; font-size:.95rem}
   </style>
 </head>
 <body>
-  <header>
-    <h2>🎯 Quiz: Descoperă-ți Persona AI</h2>
+  <header class="wrap">
+    <h1>Quiz: Descoperă-ți Persona AI</h1>
   </header>
-  <iframe src="ai_persona_quiz_ro.html"></iframe>
+
+  <main class="wrap">
+    <!-- QUIZ-UL: asigură-te că fișierul există în repo -->
+    <iframe src="ai_persona_quiz_ro.html" title="AI Persona Quiz"></iframe>
+
+    <!-- Buton către jocul de etică (versiunea extinsă) -->
+    <div class="cta">
+      <a href="ai_ethics_challenge_plus.html">
+        🎮 Joacă și „AI Ethics Challenge” (8 scenarii • 3–5 minute)
+      </a>
+    </div>
+
+    <div class="hint">
+      Dacă butonul nu funcționează, deschide direct:
+      <a href="ai_ethics_challenge_plus.html" style="color:#9cc0ff">ai_ethics_challenge_plus.html</a>
+    </div>
+  </main>
 </body>
 </html>
