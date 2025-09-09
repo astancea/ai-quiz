@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI Ethics Challenge – Demo</title>
+<title>AI Ethics Challenge – Versiune extinsă</title>
 <style>
   :root{--bg:#0b0e14;--card:#101421;--muted:#aeb6c6;--accent:#7aa2ff;--good:#31d0aa;--warn:#ffbe55;--bad:#ff6b6b}
   *{box-sizing:border-box}
   html,body{margin:0;background:var(--bg);color:#e9edf6;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
-  .wrap{max-width:960px;margin:0 auto;padding:28px 18px 80px}
+  .wrap{max-width:1000px;margin:0 auto;padding:28px 18px 90px}
   h1{margin:0 0 10px 0;font-size:clamp(24px,3.2vw,36px)}
   p.lead{margin:.25rem 0 1rem;color:var(--muted)}
   .card{background:var(--card);border:1px solid #1b2338;border-radius:16px;padding:20px;margin:16px 0;box-shadow:0 6px 20px rgba(0,0,0,.25)}
   .choices{display:grid;gap:10px;margin-top:12px}
   .choice{padding:12px 14px;border:1px solid #1b2338;border-radius:12px;background:#0f1324;cursor:pointer;transition:transform .05s ease}
   .choice:hover{transform:translateY(-1px);border-color:#283456}
-  .choice.correct{border-color:var(--good)}
+  .choice.good{border-color:var(--good)}
   .choice.warn{border-color:var(--warn)}
   .choice.bad{border-color:var(--bad)}
-  .feedback{margin-top:10px;padding:10px 12px;border-radius:12px;background:#0f1426;color:#dfe7ff;border:1px dashed #2a3553}
+  .feedback{margin-top:10px;padding:10px 12px;border-radius:12px;background:#0f1426;border:1px dashed #2a3553}
   .feedback.good{border-color:var(--good);color:#d9fff4}
   .feedback.warn{border-color:var(--warn);color:#fff0d6}
   .feedback.bad{border-color:var(--bad);color:#ffe5e5}
@@ -30,80 +30,117 @@
   button.secondary{background:#232b46;color:#dbe6ff}
   .end h2{margin:.2rem 0}
   .grid{display:grid;gap:10px}
-  .persona{display:flex;gap:10px;align-items:flex-start}
+  .persona{display:flex;gap:12px;align-items:flex-start}
   .badge{font-size:28px}
   ul{margin:.3rem 0 0 1.2rem}
+  .tip{background:#0e162b;border:1px solid #243158;padding:10px 12px;border-radius:12px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width: 760px){ .two{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>AI Ethics Challenge <span style="font-size:0.7em;opacity:.7">demo</span></h1>
-  <p class="lead">Joacă 5 scenarii scurte. Primești puncte în funcție de impactul etic al deciziilor tale. La final, vei primi un profil: 🛡️ Guardian, ⚖️ Balancer, 🚀 Innovator sau 🎭 Risk-Taker.</p>
+  <h1>AI Ethics Challenge <span style="font-size:.7em;opacity:.7">versiune extinsă</span></h1>
+  <p class="lead">8 scenarii realiste. Alege acțiunea în fiecare situație. Primești feedback imediat și, la final, un profil etic + recomandări.</p>
 
   <div class="card">
     <div class="small">Progres</div>
     <div class="bar"><span id="prog"></span></div>
-    <div class="small"><span id="stepTxt">Scenariul 1/5</span> • Scor: <b id="scoreTxt">0</b></div>
+    <div class="small"><span id="stepTxt">Scenariul 1/8</span> • Scor: <b id="scoreTxt">0</b></div>
   </div>
 
   <div id="game" class="card grid"></div>
   <div id="end" class="card end" style="display:none"></div>
+
+  <div class="card tip">
+    <div class="small">Criterii cheie evaluate:</div>
+    • nediscriminare & audit de bias • transparență & explicabilitate • consimțământ & legalitate • minimizarea datelor • proporționalitate • siguranță & evaluare a riscurilor • integritate informațională (deepfakes, hallucinations).
+  </div>
 </div>
 
 <script>
+// Scoruri: good +3, better +2, safe-but-limiting +1, warn -1, bad -2/-3
 const scenarios = [
   {
-    title: "Admitere automatizată",
-    text: "Universitatea vrea să folosească un model AI pentru trierea aplicațiilor. Știi că datele istorice pot avea bias.",
+    title: "Admitere universitară automatizată",
+    text: "Universitatea vrea să folosească un model AI pentru trierea aplicațiilor. Datele istorice pot conține bias.",
     choices: [
-      {label:"Rulezi AI imediat – câștigăm timp", score:-2, tone:"bad", fb:"Risc de discriminare, fără audit."},
-      {label:"Folosești AI + audit periodic de bias + verificare umană", score:+3, tone:"good", fb:"Combini eficiența cu audit și supraveghere umană."},
-      {label:"Refuzi AI complet", score:+1, tone:"warn", fb:"Eviți riscurile, dar pierzi eficiența."},
+      {label:"Rulezi AI imediat pentru eficiență", score:-2, tone:"bad", fb:"Fără audit/monitorizare expui studenții la discriminare sistemică."},
+      {label:"AI + audit de bias + verificare umană + jurnalizare decizii", score:+3, tone:"good", fb:"Combini eficiența cu protecții: audit continuu, supraveghere umană, trasabilitate."},
+      {label:"Renunți complet la AI", score:+1, tone:"warn", fb:"Eviți riscurile, dar pierzi eficiență și consistență – o soluție proporțională ar fi mai potrivită."}
     ]
   },
   {
-    title: "Recrutare și transparență",
-    text: "Compania ta folosește AI pentru screening CV-uri. Candidații întreabă cum sunt evaluați.",
+    title: "Recrutare: transparență și contestare",
+    text: "AI face pre-screening-ul CV-urilor. Candidații cer detalii despre criterii și dreptul de contestație.",
     choices: [
-      {label:"Nu dezvălui nimic – model proprietar", score:-2, tone:"bad", fb:"Lipsa transparenței compromite încrederea."},
-      {label:"Oferi explicație generală + drept de contestație", score:+3, tone:"good", fb:"Transparență și mecanism de remediere."},
-      {label:"Dezvălui tot codul și datele public", score:+1, tone:"warn", fb:"Transparență totală, dar expui IP și date sensibile."},
+      {label:"Nu dezvălui nimic – model proprietar", score:-2, tone:"bad", fb:"Lipsa transparenței subminează încrederea și poate încălca norme legale."},
+      {label:"Explici pe scurt logica + oferi canal de contestare + măsuri anti-bias", score:+3, tone:"good", fb:"Transparență rezonabilă, explicabilitate și remedii – standard recomandat."},
+      {label:"Publici întregul cod și datele de antrenare", score:+1, tone:"warn", fb:"Transparența totală poate expune IP și date sensibile; caută un echilibru."}
     ]
   },
   {
-    title: "Date sensibile în sănătate",
+    title: "Sănătate: date sensibile",
     text: "Un spital vrea să antreneze un model pe date reale ale pacienților.",
     choices: [
-      {label:"Folosim date reale neredactate", score:-3, tone:"bad", fb:"Risc grav pentru confidențialitate."},
-      {label:"Folosim date anonimizate + consimțământ", score:+3, tone:"good", fb:"Respect pentru viața privată și legalitate."},
-      {label:"Generăm date sintetice + validare clinică", score:+2, tone:"good", fb:"Reduce riscul de re-identificare."},
+      {label:"Folosim date reale neredactate (acuratețe maximă)", score:-3, tone:"bad", fb:"Risc major pentru confidențialitate (re-identificare). Necesare anonimizare și consimțământ."},
+      {label:"Anonimizare + consimțământ informat + acces limitat + evaluări DPIA", score:+3, tone:"good", fb:"Respectă confidențialitatea și legalitatea, cu guvernanță pe întreg ciclul de viață."},
+      {label:"Date sintetice + validare clinică + audit", score:+2, tone:"good", fb:"Reduce riscurile, dar validează atent performanța pe cazuri reale."}
     ]
   },
   {
     title: "Deepfake în campanie",
-    text: "Un client politic îți cere un video deepfake cu un oponent.",
+    text: "Un client politic solicită un video realist cu un oponent spunând ceva fals.",
     choices: [
-      {label:"Îl creezi – e doar marketing", score:-3, tone:"bad", fb:"Manipulare și dezinformare."},
-      {label:"Refuzi proiectul și propui conținut autentic", score:+3, tone:"good", fb:"Protejezi integritatea discursului public."},
-      {label:"Îl creezi, dar pui etichetă 'synthetic'", score:-1, tone:"warn", fb:"Etichetarea ajută, dar impactul nociv rămâne."},
+      {label:"Accepți – „e doar creativitate”", score:-3, tone:"bad", fb:"Dezinformare intenționată ce erodează democrația."},
+      {label:"Refuzi și propui conținut autentic verificabil", score:+3, tone:"good", fb:"Protejezi integritatea informațională și încrederea publică."},
+      {label:"Generezi video dar aplici etichetă clară 'synthetic'", score:-1, tone:"warn", fb:"Etichetarea ajută, însă răul poate persista prin redistribuire."}
     ]
   },
   {
     title: "Monitorizare la locul de muncă",
-    text: "Managerul vrea un sistem AI care monitorizează tastările angajaților.",
+    text: "Managerul vrea AI care urmărește tastări și ecrane pentru productivitate.",
     choices: [
-      {label:"Activezi totul fără informare", score:-3, tone:"bad", fb:"Invadează viața privată."},
-      {label:"Consultare + scop limitat + opt-out", score:+3, tone:"good", fb:"Minimizare a datelor și consimțământ."},
-      {label:"Renunți complet la monitorizare", score:+1, tone:"warn", fb:"Protejezi confidențialitatea, dar pierzi optimizări."},
+      {label:"Activezi monitorizarea completă fără informare", score:-3, tone:"bad", fb:"Invadează viața privată și afectează climatul de încredere."},
+      {label:"Consultare + scop limitat + minimizare date + opțiuni de control", score:+3, tone:"good", fb:"Proporționalitate și consimțământ – abordare responsabilă."},
+      {label:"Renunți la orice monitorizare", score:+1, tone:"warn", fb:"Protejezi confidențialitatea, dar poți rata optimizări legitime."}
+    ]
+  },
+  {
+    title: "Redacție: halucinații LLM",
+    text: "Un jurnalist folosește un model lingvistic pentru sumarizare și idei de titluri.",
+    choices: [
+      {label:"Publică textul generat fără verificări", score:-2, tone:"bad", fb:"Risc de halucinații/fapte false; încălcări etice de acuratețe."},
+      {label:"Folosești AI pentru draft, dar verifici toate faptele + surse + notezi utilizarea", score:+3, tone:"good", fb:"Îmbini productivitatea cu standarde editoriale și transparență."},
+      {label:"Interzici complet folosirea AI în redacție", score:+1, tone:"warn", fb:"Eviți erorile, dar pierzi beneficii legitime; regulile clare sunt mai eficiente."}
+    ]
+  },
+  {
+    title: "Educație: detecție de plagiat AI",
+    text: "Profesorii doresc un detector AI pentru teme la facultate.",
+    choices: [
+      {label:"Obligi detectorul pentru toate temele și penalizezi automat", score:-2, tone:"bad", fb:"Fals pozitive posibile; lipsește due process și feedback educațional."},
+      {label:"Detector + discuție cu studentul + redesign de evaluări + politică clară", score:+3, tone:"good", fb:"Combini instrumente cu pedagogie și proceduri corecte."},
+      {label:"Nu folosești deloc detectorul", score:+1, tone:"warn", fb:"Reduci riscul de erori, dar îngreunezi identificarea cazurilor reale."}
+    ]
+  },
+  {
+    title: "Siguranță: recunoaștere facială pe campus",
+    text: "Administrația propune camere cu recunoaștere facială pentru acces în clădiri.",
+    choices: [
+      {label:"Activezi sistemul imediat – „securitatea înainte de toate”", score:-3, tone:"bad", fb:"Supraveghere intruzivă, profilare și posibile erori pe grupuri minoritare."},
+      {label:"Analiză de risc + pilot limitat + alternativă non-biometrică + ștergere rapidă", score:+3, tone:"good", fb:"Proporționalitate, opțiuni și guvernanță reduc riscurile."},
+      {label:"Refuzi orice folosire de biometrie", score:+2, tone:"good", fb:"Eviți riscurile, dar e posibil să sacrifici unele beneficii; documentează decizia."}
     ]
   }
 ];
 
 function personaFromScore(score){
-  if(score >= 11) return {name:"🛡️ Guardian", desc:"Prioritizezi drepturile, transparența și controlul uman."};
-  if(score >= 7)  return {name:"⚖️ Balancer", desc:"Cauți echilibrul între inovație și risc."};
-  if(score >= 3)  return {name:"🚀 Innovator", desc:"Îți place să experimentezi, dar ai nevoie de mai multă atenție la etică."};
-  return {name:"🎭 Risk-Taker", desc:"Pui viteza înaintea eticii. Recalibrează pe confidențialitate și transparență."};
+  // 8 scenarii, max 24 puncte
+  if(score >= 17) return {key:"guardian", name:"🛡️ Guardian", desc:"Prioritizezi drepturile, transparența și controlul uman. Ești consecvent(ă) în aplicarea principiilor și alegi măsuri proporționale cu risc scăzut."};
+  if(score >= 12) return {key:"balancer", name:"⚖️ Balancer", desc:"Cauți echilibrul între inovație și risc. Folosești AI cu protecții solide (audit, explicabilitate, guvernanță), dar rămâi deschis(ă) la îmbunătățiri."};
+  if(score >= 6)  return {key:"innovator", name:"🚀 Innovator", desc:"Valorezi inovația și viteza; uneori minimizezi riscurile. Cu reguli și verificări mai riguroase, poți ajunge rapid la un standard înalt."};
+  return {key:"risk", name:"🎭 Risk-Taker", desc:"Asumi riscuri mari și ignori adesea consecințele. Recalibrează pe confidențialitate, bias, transparență și protecția utilizatorilor."};
 }
 
 let step = 0, score = 0;
@@ -119,7 +156,12 @@ function renderStep(){
   stepTxt.textContent = `Scenariul ${step+1}/${scenarios.length}`;
   scoreTxt.textContent = score;
 
-  gameEl.innerHTML = `<h2>${s.title}</h2><div>${s.text}</div><div class="choices"></div>`;
+  gameEl.innerHTML = `
+    <h2>${s.title}</h2>
+    <div>${s.text}</div>
+    <div class="choices"></div>
+    <div class="small" style="opacity:.8;margin-top:6px">Alege o variantă; primești feedback instant și treci la următorul scenariu.</div>
+  `;
   const choicesEl = gameEl.querySelector(".choices");
   s.choices.forEach(c=>{
     const btn = document.createElement("div");
@@ -148,7 +190,66 @@ function finish(){
   gameEl.style.display="none";
   const p=personaFromScore(score);
   endEl.style.display="block";
-  endEl.innerHTML = `<h2>${p.name}</h2><p>${p.desc}</p><p>Scor final: <b>${score}</b> din ${scenarios.length*3}</p>`;
+
+  const recs = {
+    guardian: [
+      "Documentează-ți practicile (registre decizionale, DPIA, politici interne).",
+      "Împărtășește exemple și template-uri cu echipa (ghiduri, checklisturi).",
+      "Testează periodic proporționalitatea măsurilor (evită 'over-compliance')."
+    ],
+    balancer: [
+      "Formalizează guvernanța: roluri, audit regulat, plan de răspuns la incidente.",
+      "Introdu canale clare pentru contestare/feedback al utilizatorilor.",
+      "Experimentează în sandbox-uri cu măsurare de risc și impact."
+    ],
+    innovator: [
+      "Adaugă verificări sistematice: evaluări de bias, revizuire umană, teste A/B etice.",
+      "Publică un rezumat de transparență (ce date, pentru ce scop, cum protejezi).",
+      "Definește praguri de risc care opresc lansarea până la remedieri."
+    ],
+    risk: [
+      "Creează un checklist minimal (consimțământ, minimizare, audit de bias, logging).",
+      "Implică un 'ethics buddy' sau comitet pentru a revizui deciziile cheie.",
+      "Începe cu proiecte pilot mici, măsoară efectele, corectează rapid."
+    ]
+  };
+
+  const why = [
+    "Ai ales frecvent opțiuni cu audit/consimțământ/transparență.",
+    "Ai preferat soluții proporționale (nu extreme).",
+    "Ai evitat dezinformarea și supravegherea intruzivă.",
+    "Ai protejat confidențialitatea și ai minimizat datele."
+  ];
+
+  endEl.innerHTML = `
+    <div class="persona">
+      <div class="badge">${p.name.split(" ")[0]}</div>
+      <div>
+        <h2 style="margin:0">${p.name}</h2>
+        <div class="small">${p.desc}</div>
+      </div>
+    </div>
+    <div class="two" style="margin-top:14px">
+      <div class="card" style="background:#0e1428">
+        <div class="small">Scor final</div>
+        <h3 style="margin:.2rem 0">${score} / ${scenarios.length*3}</h3>
+        <div class="small">(${scenarios.length} scenarii, +3 = alegere etică, +2 = foarte bună, +1 = sigură dar limitativă, negative = problematice)</div>
+      </div>
+      <div class="card" style="background:#0e1428">
+        <div class="small">De ce ai obținut acest profil</div>
+        <ul>${why.map(x=>`<li>${x}</li>`).join("")}</ul>
+      </div>
+    </div>
+    <div class="card tip">
+      <div class="small"><b>Pașii următori recomandați pentru profilul tău</b></div>
+      <ul>${recs[p.key].map(x=>`<li>${x}</li>`).join("")}</ul>
+    </div>
+    <div class="footer">
+      <button id="restart">Repornește</button>
+      <button class="secondary" onclick="location.href='index.html'">Înapoi la Quiz</button>
+    </div>
+  `;
+  document.getElementById("restart").onclick = () => location.reload();
 }
 
 renderStep();
