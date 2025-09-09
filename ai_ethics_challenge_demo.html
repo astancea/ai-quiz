@@ -54,14 +54,7 @@
 
   <div class="card tip">
     <div class="small">Criterii cheie evaluate:</div>
-    Scopul jocului nu e doar să alegi rapid, ci să vezi cât de mult respecți principiile esențiale ale eticii AI. Deciziile tale vor fi analizate prin prisma unor principii esențiale pentru utilizarea responsabilă a inteligenței artificiale:
-    • nediscriminare și auditarea biasului
-    • transparență și explicabilitate
-    • consimțământ și respectarea legii
-    • minimizarea datelor
-    • proporționalitate
-    • siguranță și evaluarea riscurilor
-    • integritatea informației (de ex. deepfakes, halucinații)
+    Scopul jocului nu e doar să alegi rapid, ci să vezi cât de mult respecți principiile esențiale ale eticii AI. Deciziile tale vor fi analizate prin prisma unor principii esențiale pentru utilizarea responsabilă a inteligenței artificiale: nediscriminare și auditarea biasului; transparență și explicabilitate; consimțământ și respectarea legii; minimizarea datelor; proporționalitate; siguranță și evaluarea riscurilor; integritatea informației (de ex. deepfakes, halucinații)
   </div>
 </div>
 
@@ -70,7 +63,7 @@
 const scenarios = [
   {
     title: "Admitere universitară automatizată",
-    text: "Universitatea vrea să folosească un model AI pentru trierea aplicațiilor. Datele istorice pot conține bias.",
+    text: "Universitatea se confruntă cu un număr tot mai mare de aplicații pentru programele sale și decide să implementeze un model AI care să trieză candidații în faza inițială. Modelul se bazează pe date istorice din ultimii 10 ani, care includ informații despre performanța academică a studenților, recomandări, activități extracurriculare și date demografice. Problema este că aceste date istorice reflectă deja anumite inechități: în trecut, unii candidați din medii defavorizate au fost subreprezentați, iar recomandările profesorilor au fost influențate de prejudecăți. Există riscul ca AI-ul să perpetueze sau chiar să amplifice aceste biasuri. Universitatea trebuie să decidă cum să folosească AI-ul: va merge pe varianta rapidă, lăsând algoritmul să facă selecția automat, va combina AI-ul cu verificări umane și audit de bias, sau va renunța complet la AI pentru a evita orice risc?",
     choices: [
       {label:"Rulezi AI imediat pentru eficiență", score:-2, tone:"bad", fb:"Fără audit/monitorizare expui studenții la discriminare sistemică."},
       {label:"AI + audit de bias + verificare umană + jurnalizare decizii", score:+3, tone:"good", fb:"Combini eficiența cu protecții: audit continuu, supraveghere umană, trasabilitate."},
