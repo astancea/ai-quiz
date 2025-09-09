@@ -78,100 +78,103 @@ const scenarios = [
   },
   {
     title: "Recrutare: transparență și contestare",
-    text: `Compania ta folosește AI pentru pre-screening de CV-uri. Candidații cer claritate privind criteriile
-    și un mecanism de contestare.`,
+    text: `Compania ta a început să folosească un sistem AI pentru pre-screening-ul CV-urilor, cu scopul de a accelera procesul de recrutare și a reduce încărcarea departamentului de HR. 
+    Algoritmul analizează educația, experiența și cuvintele cheie din CV-uri, după care selectează automat candidații considerați potriviți. Totuși, unii candidați respinși cer claritate: 
+    pe ce criterii exacte a decis AI-ulși dacă există o cale prin care pot contesta decizia?
+    Presiunea publică și riscul legal cresc. Compania trebuie să decidă cât de multă transparență și posibilitate de contestare să ofere.`,
     choices: [
       {label:"Nu dezvălui nimic – „model proprietar”", score:-2, tone:"bad",
-       fb:`Lipsa transparenței subminează încrederea și poate încălca obligații privind informarea. Crește riscul
-       percepției de arbitrar și a litigiilor.`},
+       fb:`Această decizie păstrează confidențialitatea algoritmului, dar subminează încrederea candidaților și poate încălca obligațiile de informare. 
+       Oamenii percep procesul ca arbitrar și lipsit de responsabilitate, ceea ce poate genera litigii sau plângeri la autoritățile de muncă. 
+       Soluția poate părea convenabilă pe termen scurt, dar compromite reputația companiei și șansele de a atrage talente.`},
       {label:"Explici logica pe scurt + canal de contestare + măsuri anti-bias", score:+3, tone:"good",
-       fb:`Transparență rezonabilă, explicabilitate și drept la remediu. Încurajezi corectitudinea și responsabilitatea
-       fără a expune secrete comerciale esențiale.`},
+       fb:`Aceasta este o abordare echilibrată. Oferi un nivel rezonabil de transparență (explici pe scurt ce factori sunt luați în calcul), creezi un mecanism de contestare prin care un candidat poate cere revizuirea deciziei și introduci audituri periodice pentru bias. În acest fel, îmbini eficiența AI cu responsabilitatea și corectitudinea, fără să expui proprietatea intelectuală a modelului. 
+       Încrederea candidaților crește și compania își protejează reputația și conformitatea legală.`},
       {label:"Publici integral codul și seturile de date", score:+1, tone:"warn",
-       fb:`Transparență maximă dar nerealistă: expune IP și potențiale date sensibile. E mai bun un echilibru
-       (rezumat de transparență + audit).`}
+       fb:`Această opțiune aduce transparență maximă, dar este greu de implementat și riscantă. Expunerea codului și a datelor de antrenament poate compromite drepturile de proprietate intelectuală și poate dezvălui informații sensibile sau confidențiale. Deși promovează deschiderea, soluția nu este realistă pentru majoritatea companiilor. 
+       Un compromis mai bun este publicarea unui rezumat de transparență (criterii generale, măsuri anti-bias, existența auditului) și menținerea unui mecanism clar de contestare`}
     ]
   },
   {
     title: "Sănătate: date sensibile",
-    text: `Un spital dorește să antreneze un model pe date reale ale pacienților pentru a prezice complicații.
-    Riscul de re-identificare este ridicat.`,
+    text: `Un spital universitar vrea să dezvolte un model AI care să prezică posibile complicații post-operatorii, cu scopul de a salva vieți și de a reduce costurile tratamentelor. Cercetătorii consideră că performanța modelului va fi cu atât mai mare cu cât vor avea acces la date medicale mai detaliate: istoricul complet al pacienților, rezultate de laborator, imagistică medicală și chiar note clinice scrise de medici. Problema este că aceste date sunt extrem de sensibile și chiar dacă sunt eliminate numele și adresele, există riscul de re-identificare prin combinații unice de factori (vârstă, boli rare, localizare). În plus, pacienții nu au fost informați inițial că datele lor vor fi folosite pentru antrenarea unui algoritm.`,
     choices: [
       {label:"Folosim date reale neredactate pentru acuratețe", score:-3, tone:"bad",
-       fb:`Încălci principiile de confidențialitate și legalitate (ex. GDPR). Risc major pentru pacienți în caz de
-       scurgere sau acces abuziv.`},
+       fb:`Această decizie poate crește performanța modelului, dar încalcă principii fundamentale de confidențialitate și legalitate (ex. GDPR și legislația privind datele medicale). Datele medicale brute expun pacienții la riscuri majore în caz de scurgere sau acces abuziv. O astfel de alegere poate duce la pierderea încrederii publicului în spital, amenzi substanțiale și procese legale. Din punct de vedere etic și juridic, este o opțiune de evitat.`},
       {label:"Anonimizare + consimțământ informat + acces limitat + DPIA", score:+3, tone:"good",
-       fb:`Combini utilitatea clinică cu protecția datelor și conformitate legală. DPIA identifică riscuri și măsuri
-       concrete de atenuare.`},
+       fb:`Aceasta este abordarea recomandată și responsabilă. Prin anonimizare, reduci riscul de re-identificare; prin consimțământ informat, respecți autonomia pacienților; prin acces limitat doar la personal autorizat, protejezi datele; iar printr-un DPIA (Data Protection Impact Assessment) identifici din timp riscurile și măsurile de atenuare. Rezultatul este un echilibru între utilitatea clinică și protecția datelor, cu respectarea cadrului legal. Astfel, spitalul își menține încrederea și conformitatea.`},
       {label:"Date sintetice + validare clinică + audit", score:+2, tone:"good",
-       fb:`Reduci riscul de re-identificare folosind date sintetice. Totuși, validează riguros performanța pe seturi
-       reale și monitorizează degradarea în timp.`}
+       fb:`Datele sintetice sunt o soluție promițătoare pentru a reduce riscul de re-identificare, deoarece nu aparțin unor persoane reale. Totuși, modelele bazate exclusiv pe date sintetice pot suferi de lipsă de realism și pot genera predicții mai puțin precise. De aceea, este crucială validarea clinică riguroasă pe seturi reale (cu protecții suplimentare) și realizarea de audituri periodice. Aceasta este o opțiune etică și inovatoare, dar necesită investiții și proceduri stricte pentru a fi credibilă.`}
     ]
   },
   {
     title: "Deepfake în campanie",
-    text: `Un client politic îți cere un video deepfake cu un oponent făcând o declarație falsă, pentru viralizare.`,
+    text: `Lucrezi într-o agenție de comunicare politică, iar un client îți cere să creezi un video deepfake în care oponentul său politic face o declarație falsă, dar foarte credibilă. Obiectivul este ca materialul să devină viral pe rețele sociale, influențând electoratul înainte de alegeri. Clientul justifică cererea spunând că „toți ceilalți fac asta” și că este doar o strategie de marketing creativ. Tu știi însă că deepfake-urile pot fi dificil de detectat și pot afecta grav integritatea democratică și încrederea publicului în informații veridice.`,
     choices: [
       {label:"Accepți – e doar „marketing creativ”", score:-3, tone:"bad",
-       fb:`Participi la dezinformare intenționată, afectezi integritatea democratică și poți genera daune reale.
-       Etic și social, consecințele sunt grave.`},
+       fb:`Această alegere te transformă într-un participant activ la dezinformare intenționată. Video-ul poate manipula votanții, afectând direct rezultatele alegerilor și subminând democrația. Pe termen scurt, poate părea un avantaj pentru client, dar consecințele sociale, juridice și etice sunt extrem de grave. Agenția riscă scandal public, pierderea reputației și chiar răspundere legală pentru răspândirea de falsuri`},
       {label:"Refuzi și propui conținut autentic verificabil", score:+3, tone:"good",
-       fb:`Protejezi integritatea informațională și coeziunea socială. Construiești încredere și eviți efectele
-       negative ale manipulării.`},
+       fb:`Aceasta este alegerea etică și sustenabilă. Refuzând să creezi deepfake-ul și oferind în schimb soluții alternative — clipuri autentice, mesaje bazate pe fapte verificabile, interviuri sau campanii creative transparente — protejezi integritatea informațională și contribui la menținerea unui spațiu public sănătos. Alegerea sprijină coeziunea socială și construiește încredere pe termen lung atât pentru client, cât și pentru agenția ta`},
       {label:"Generezi video dar aplici etichetă clară „synthetic”", score:-1, tone:"warn",
-       fb:`Etichetarea ajută parțial, dar conținutul poate fi reeditat sau redistribuit fără context, producând
-       confuzie și prejudicii.`}
+       fb:`Această opțiune pare un compromis: creezi conținutul cerut, dar îl marchezi explicit ca fiind artificial. Totuși, riscul rămâne ridicat: etichetele pot fi șterse, materialul poate fi reeditat sau redistribuit fără context, iar publicul poate fi indus în eroare oricum. Deși responsabilitatea este parțial atenuată, impactul negativ asupra opiniei publice și asupra încrederii în informație rămâne semnificativ.`}
     ]
   },
   {
     title: "Monitorizare la locul de muncă",
-    text: `Managerul vrea un sistem AI care monitorizează tastările și ecranele angajaților pentru a crește
-    productivitatea.`,
+    text: `Managerul companiei propune implementarea unui sistem AI care să monitorizeze în detaliu activitatea angajaților: tastările, capturile de ecran și timpul petrecut pe fiecare aplicație. Argumentul principal este creșterea productivității și detectarea angajaților care „pierdeau vremea” în timpul programului. Deși tehnologia ar putea oferi date utile despre eficiență, există riscul ca supravegherea excesivă să ducă la pierderi de încredere, stres și chiar conflicte cu legislația privind protecția datelor. Compania trebuie să decidă între eficiență maximă și respectarea vieții private a angajaților`,
     choices: [
       {label:"Activezi monitorizarea completă fără informare", score:-3, tone:"bad",
-       fb:`Invadezi viața privată, subminezi încrederea și motivația. Risc de abuz și colectare excesivă de date.`},
+       fb:`Această decizie maximizează controlul, dar are consecințe negative severe. Angajații vor percepe sistemul ca pe o invazie a vieții private, ceea ce duce la scăderea motivației și la o atmosferă tensionată. În plus, colectarea masivă și netransparentă de date contravine principiilor de minimizare a datelor și poate încălca legislația muncii și protecția datelor (ex. GDPR). Pe termen lung, compania riscă pierderea angajaților valoroși și sancțiuni legale.`},
       {label:"Consultare + scop limitat + minimizare date + opțiuni de control", score:+3, tone:"good",
-       fb:`Abordare proporțională: clarifici scopul, limitezi accesul, informezi angajații și oferi control. Reducere
-       semnificativă a riscurilor.`},
+       fb:`Aceasta este o abordare proporțională și echilibrată. Înainte de implementare, compania organizează o consultare cu angajații și explică scopul precis al monitorizării (de exemplu, optimizarea fluxurilor de lucru, nu urmărirea personală). Se colectează doar date strict necesare, accesul la acestea este limitat, iar angajații au opțiuni de control și transparență (ex. pot vedea ce date sunt înregistrate). Această decizie reduce riscurile, menține încrederea și respectă atât eficiența, cât și drepturile fundamentale.`},
       {label:"Renunți la orice monitorizare", score:+1, tone:"warn",
-       fb:`Protejezi confidențialitatea dar ratezi optimizări legitime. Politicile clare și instrumentele moderate pot
-       atinge un echilibru.`}
+       fb:`Această alegere protejează în totalitate confidențialitatea și autonomia angajaților, eliminând orice risc de abuz. Totuși, compania pierde oportunitatea de a obține date utile pentru îmbunătățirea proceselor și a productivității. O soluție de compromis ar fi să folosești instrumente moderate și transparente, axate pe indicatori de performanță colectivi și nu pe supravegherea intruzivă individuală. În acest fel, se menține echilibrul între performanță și respectarea vieții private.`}
     ]
   },
   {
-    title: "Redacție: halucinații LLM",
-    text: `Un jurnalist folosește un model lingvistic pentru a genera titluri și sumarul unui articol de știri.`,
+    title: "Student și utilizarea AI la lucrări",
+    text: `Ești student(ă) și te apropii de sesiune. În fața ta stă o temă importantă, iar mai târziu te așteaptă și
+  redactarea lucrării de licență. Tentația este să folosești un model AI generativ pentru a scrie rapid eseul,
+  pentru a genera schițe de capitole sau chiar pentru a formula concluziile. Profesorii însă au avertizat că
+  folosirea neetică a AI-ului poate fi considerată plagiat, dar nu au stabilit reguli foarte clare. Cum procedezi?`,
     choices: [
-      {label:"Publică textul generat fără verificări", score:-2, tone:"bad",
-       fb:`Risc de halucinații, erori factuale și defăimare. Compromiți credibilitatea redacției.`},
-      {label:"AI pentru draft + verifici faptele/sursele + notezi utilizarea", score:+3, tone:"good",
-       fb:`Crești productivitatea, menții standardele de acuratețe și transparență față de public.`},
-      {label:"Interzici complet AI în redacție", score:+1, tone:"warn",
-       fb:`Eviți unele riscuri dar pierzi beneficii legitime. Regulile clare și verificarea editorială sunt esențiale.`}
+      {label:"Predai textul generat de AI fără modificări", score:-2, tone:"bad",
+       fb:`Această alegere îți aduce un câștig rapid de timp, dar riști consecințe grave: textul poate conține
+      halucinații sau erori, nu reflectă munca ta reală și poate fi considerat plagiat. În plus, lipsa de
+      înțelegere a conținutului te va afecta la examene sau susținerea lucrării.`},
+      {label:"Folosești AI ca suport (structură, idei) + verifici și rescrii cu propriile cuvinte", score:+3, tone:"good",
+       fb:`Aceasta este o abordare responsabilă. AI-ul te ajută să economisești timp și să obții inspirație, dar
+      tu rămâi autorul principal: verifici sursele, rescrii, adaugi exemple proprii și menționezi transparent
+      utilizarea instrumentului. Astfel, înveți efectiv și eviți problemele de etică și integritate academică.`},
+      {label:"Eviți complet AI pentru teme și lucrări", score:+1, tone:"warn",
+       fb:`Această alegere elimină orice risc de plagiat și te obligă să muncești independent, dar pierzi și
+      beneficiile legitime pe care AI-ul ți le-ar putea aduce (organizare, sugestii, idei). Pe termen lung,
+      cu reguli clare și transparență, folosirea moderată a AI-ului poate fi o resursă utilă.`}
     ]
   },
   {
     title: "Educație: detecție plagiat AI",
-    text: `Profesorii propun un detector AI obligatoriu pentru toate temele; rezultatele ar declanșa penalizări automate.`,
+    text: `La o universitate, profesorii se confruntă cu o problemă nouă: studenții folosesc instrumente de inteligență artificială generativă pentru a scrie eseuri, proiecte și chiar lucrări de cercetare. Pentru a menține standardele academice, conducerea propune folosirea unui detector AI obligatoriu pentru toate temele. Conform propunerii, fiecare lucrare ar fi scanată automat, iar dacă detectorul o clasifică drept „scrisă cu AI”, studentul ar fi penalizat imediat, fără o verificare suplimentară. Profesorii sunt împărțiți: unii consideră că aceasta este singura soluție pentru a combate trișatul, alții atrag atenția asupra riscului de erori de clasificare și asupra impactului negativ asupra procesului educațional. Universitatea trebuie să decidă cum va folosi aceste instrumente, astfel încât să echilibreze integritatea academică cu drepturile și învățarea autentică a studenților.`,
     choices: [
       {label:"Obligi detectorul și penalizezi automat", score:-2, tone:"bad",
-       fb:`Risc de fals pozitive și lipsă de due process. Descurajezi învățarea autentică.`},
+       fb:`Această decizie transmite un mesaj de fermitate, dar are consecințe problematice. Detectoarele AI nu sunt infailibile și pot genera fals pozitive, adică să marcheze lucrări originale ca fiind produse de AI. Penalizarea automată fără o verificare umană duce la lipsa de due process (dreptul studentului de a-și apăra munca). În plus, măsura poate crea o atmosferă de neîncredere și frică, descurajând creativitatea și procesul de învățare autentic.`},
       {label:"Detector + discuție cu studentul + redesign evaluări + politică clară", score:+3, tone:"good",
-       fb:`Combini instrumente cu pedagogie responsabilă și proceduri corecte. Încurajezi onestitatea academică.`},
+       fb:`Aceasta este abordarea responsabilă și pedagogică. Detectorul este folosit doar ca instrument de sprijin, nu ca judecător absolut. Dacă o lucrare ridică semne de întrebare, profesorul discută cu studentul pentru a înțelege procesul de lucru. În paralel, universitatea redeseniază evaluările (de ex. teme mai aplicate, prezentări orale, examene interactive) și introduce o politică clară privind utilizarea AI. Astfel, se încurajează onestitatea academică și se dezvoltă abilități reale, fără a penaliza nedrept.`},
       {label:"Nu folosești deloc detectorul", score:+1, tone:"warn",
-       fb:`Reduci erorile de clasificare, dar îngreunezi identificarea cazurilor reale. Necesare alte metode de evaluare.`}
+       fb:`Această alegere elimină riscul de erori de clasificare, dar face mai dificilă identificarea cazurilor reale de abuz. Profesorii trebuie să se bazeze doar pe intuiție sau metode tradiționale, ceea ce poate fi ineficient. Totuși, dacă este însoțită de alte metode de evaluare inovative (proiecte colaborative, examene supravegheate, interviuri de verificare), lipsa detectorului poate fi compensată. Este o opțiune etică și sigură, dar necesită soluții alternative bine gândite.`}
     ]
   },
   {
-    title: "Campus: recunoaștere facială la acces",
-    text: `Administrația propune camere cu recunoaștere facială pentru acces rapid în clădiri, invocând siguranța.`,
+    title: "Campus: recunoaștere facială la intrare",
+    text: `Administrația universității propune instalarea unor camere cu recunoaștere facială la intrările în clădiri, pentru a accelera accesul studenților și pentru a crește siguranța campusului. Argumentele sunt că această tehnologie ar putea preveni intrările neautorizate, ar simplifica fluxul la ore de vârf și ar permite reacții rapide în caz de incidente. Totuși, apar mai multe îngrijorări: datele biometrice sunt extrem de sensibile și unică expunere poate compromite identitatea unei persoane pentru tot restul vieții; există riscul de profilare și discriminare, deoarece algoritmii de recunoaștere facială funcționează mai puțin precis pe anumite grupuri etnice și de gen; studenții și profesorii se tem că se va crea un climat de supraveghere permanentă, incompatibil cu libertatea academică.
+Administrația trebuie să decidă cum procedează`,
     choices: [
       {label:"Activezi imediat – securitatea înainte de toate", score:-3, tone:"bad",
-       fb:`Supraveghere intruzivă, profilare și erori diferențiale pe grupuri. Impact negativ asupra libertăților.`},
+       fb:`Această alegere maximizează rapid siguranța, dar sacrifică drepturile fundamentale. Instalezi un sistem de supraveghere intruzivă fără analiză de risc sau consultare. Erorile de recunoaștere pot duce la discriminare (de exemplu, acces refuzat disproporționat anumitor grupuri), iar colectarea masivă de date biometrice expune universitatea la riscuri legale și reputaționale. Pe termen lung, creezi un climat de frică și neîncredere, subminând chiar scopul educațional al campusului.`},
       {label:"Analiză de risc + pilot limitat + alternativă non-biometrică + ștergere rapidă", score:+3, tone:"good",
-       fb:`Proporționalitate și opțiuni, cu guvernanță robustă. Reduci riscurile fără a sacrifica complet utilitatea.`},
+       fb:`Aceasta este o soluție echilibrată. Înainte de implementare faci o analiză de impact (DPIA), lansezi un proiect-pilot într-o singură clădire, oferi opțiuni alternative (badge-uri, coduri PIN) pentru cei care nu doresc să își ofere date biometrice și aplici reguli stricte de stocare temporară și ștergere rapidă a datelor. Astfel, obții unele beneficii ale tehnologiei, dar limitezi riscurile și păstrezi încrederea comunității universitare.`},
       {label:"Refuzi orice folosire de biometrie", score:+2, tone:"good",
-       fb:`Elimini riscurile specifice, dar documentează decizia și oferă alternative sigure (badge-uri, PIN etc.).`}
+       fb:`Această decizie elimină complet riscurile asociate recunoașterii faciale și transmite un mesaj puternic de respect pentru drepturile și libertățile individuale. Totuși, universitatea trebuie să ofere alternative sigure și eficiente pentru controlul accesului (badge-uri inteligente, coduri PIN, carduri magnetice). În plus, este important ca refuzul să fie documentat și justificat prin politici clare, pentru a arăta că decizia nu este doar de moment, ci parte a unei strategii coerente de securitate.`}
     ]
   }
 ];
